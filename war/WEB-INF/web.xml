@@ -5,12 +5,20 @@ xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	<servlet>
-		<servlet-name>Sdapp_server</servlet-name>
-		<servlet-class>com.sdapp.server.Sdapp_serverServlet</servlet-class>
+		<servlet-name>Hello World!</servlet-name>
+		<servlet-class>com.sdapp.server.sdapp_serverServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>Sdapp_server</servlet-name>
+		<servlet-name>Hello World!</servlet-name>
 		<url-pattern>/sdapp_server</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>Register</servlet-name>
+		<servlet-class>com.sdapp.server.sdapp_registrationServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Register</servlet-name>
+		<url-pattern>/sdapp_register</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
