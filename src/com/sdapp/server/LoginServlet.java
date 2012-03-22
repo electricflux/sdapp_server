@@ -16,19 +16,44 @@ import com.sdapp.domain.UserMsg;
  */
 public class LoginServlet extends HttpServlet {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, java.io.IOException {
 
 		try
 		{	    
+			/**
+			 * Get the parameters
+			 */
+			String username = request.getParameter("un");
+			String password = request.getParameter("pw");
+			
+			/**
+			 * Sanity check
+			 */
+			if ((username == null || password == null) &&
+					(username.length()<0 || password.length()<0) &&
+					(false == username.contains("@")))
+				response.sendRedirect("invalidLogin.jsp"); //error page 
+			
+			/**
+			 * Create the user object
+			 */
 			UserMsg user = new UserMsg();
-			user.setUserName(request.getParameter("un"));
+			user.setUserName(username);
 
 			MessageDigest digest = java.security.MessageDigest.getInstance("MD5");
-			digest.update(request.getParameter("pw").getBytes());
+			digest.update(password.getBytes());
 			byte[] hash = digest.digest();
 			user.setMd5Password(new String(hash));
-
+			
+			/**
+			 * See if the user object exists
+			 */
 			user  = DAO.getUser(user);
 
 			if (user != null)
