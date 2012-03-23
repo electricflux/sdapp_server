@@ -35,6 +35,15 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet-mapping>
 <!-- Login servlet -->
 	<servlet>
+		<servlet-name>LoginServlet</servlet-name>
+		<servlet-class>com.sdapp.server.LoginServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LoginServlet</servlet-name>
+		<url-pattern>/LoginServlet</url-pattern>
+	</servlet-mapping>
+<!-- Login JSP page -->
+	<servlet>
 		<servlet-name>login</servlet-name>
 		<jsp-file>login.jsp</jsp-file>
 	</servlet>
