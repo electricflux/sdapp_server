@@ -11,8 +11,7 @@ import com.google.appengine.api.datastore.Key;
 public class ParkingSpotMsg {
 	
 	@PrimaryKey
-	@Persistent( valueStrategy = IdGeneratorStrategy.IDENTITY )
-	private Key key;
+	private Long id;
 	
 	@Persistent
 	private float latitude;
@@ -21,19 +20,25 @@ public class ParkingSpotMsg {
 	private float longitude;
 	
 	@Persistent 
-	private int numSpots;
+	private int rate;
 	
 	@Persistent
-	private String parkingSpotName;
+	private int duration;
 	
 	@Persistent
-	private float costPerMinute;
+	private int type;
 	
 	@Persistent
-	private float maxNumMinutes;
+	private int quantity;
 	
 	@Persistent
-	private long maxMinutes;
+	private String address;
+
+	@Persistent
+	private String attendent;
+
+	@Persistent
+	private String contact;
 
 	public Key getKey() {
 		return key;
