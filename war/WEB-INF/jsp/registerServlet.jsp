@@ -5,7 +5,7 @@
 </head>
 <body>
 	<h3>User registration page</h3>
-	<form action="registerServlet" method="post">
+	<form action="registrationSuccessfulServlet" method="post">
 		<table>
 			<tr>
 				<td>User Name</td>
