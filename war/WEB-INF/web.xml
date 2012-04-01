@@ -5,52 +5,54 @@ xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 
-        <!-- ========================================================== --> 
-        <!-- JSP Configuration --> 
-        <!-- ========================================================== --> 
+<!-- ========================================================== --> 
+<!-- JSP Configuration --> 
+<!-- ========================================================== --> 
 
         <jsp-config> 
                 <jsp-property-group> 
-                        <url-pattern>*.jsp</url-pattern> 
+                        <url-pattern>/WEB-INF/jsp/*.jsp</url-pattern> 
                 </jsp-property-group> 
         </jsp-config> 
-        
-<!-- Hello world servlet -->
-	<servlet>
-		<servlet-name>Hello World!</servlet-name>
-		<servlet-class>com.sdapp.server.sdapp_serverServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>Hello World!</servlet-name>
-		<url-pattern>/sdapp_server</url-pattern>
-	</servlet-mapping>
-<!-- Registration servlet -->
-	<servlet>
-		<servlet-name>Register</servlet-name>
-		<servlet-class>com.sdapp.server.sdapp_registrationServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>Register</servlet-name>
-		<url-pattern>/sdapp_register</url-pattern>
-	</servlet-mapping>
+ 
 <!-- Login servlet -->
 	<servlet>
-		<servlet-name>LoginServlet</servlet-name>
+		<servlet-name>loginServlet</servlet-name>
 		<servlet-class>com.sdapp.server.LoginServlet</servlet-class>
 	</servlet>
-	<servlet-mapping>
-		<servlet-name>LoginServlet</servlet-name>
-		<url-pattern>/LoginServlet</url-pattern>
-	</servlet-mapping>
-<!-- Login JSP page -->
+<!-- Login Successsful servlet -->
 	<servlet>
-		<servlet-name>login</servlet-name>
-		<jsp-file>login.jsp</jsp-file>
+		<servlet-name>loginSuccessfulServlet</servlet-name>
+		<servlet-class>com.sdapp.server.LoginSuccessfulServlet</servlet-class>
 	</servlet>
+<!-- Registration servlet -->
+	<servlet>
+		<servlet-name>registerServlet</servlet-name>
+		<servlet-class>com.sdapp.server.RegisterServlet</servlet-class>
+	</servlet>
+<!-- Registration Successsful servlet -->
+	<servlet>
+		<servlet-name>registrationSuccessfulServlet</servlet-name>
+		<servlet-class>com.sdapp.server.RegistrationSuccessfulServlet</servlet-class>
+	</servlet>
+	
 	<servlet-mapping>
-		<servlet-name>login</servlet-name>
-		<url-pattern>/sdapp_login</url-pattern>
+		<servlet-name>loginServlet</servlet-name>
+		<url-pattern>/loginServlet</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>loginSuccessfulServlet</servlet-name>
+		<url-pattern>/loginSuccessfulServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>registerServlet</servlet-name>
+		<url-pattern>/registerServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>registrationSuccessfulServlet</servlet-name>
+		<url-pattern>/registrationSuccessfulServlet</url-pattern>
+	</servlet-mapping>
+	
 <!-- Server entry page -->
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>

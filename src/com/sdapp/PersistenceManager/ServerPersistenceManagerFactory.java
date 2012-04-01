@@ -1,4 +1,4 @@
-package com.sdapp.PersistenceManager;
+package com.sdapp.persistencemanager;
 
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManagerFactory;

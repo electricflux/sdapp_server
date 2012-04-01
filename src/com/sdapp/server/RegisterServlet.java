@@ -1,8 +1,6 @@
 package com.sdapp.server;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,7 +14,7 @@ import com.sdapp.persistencemanager.DAO;
 /**
  * Servlet implementation class LoginServlet
  */
-public class LoginServlet extends HttpServlet {
+public class RegisterServlet extends HttpServlet {
 
 	/**
 	 * 
@@ -24,8 +22,8 @@ public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		SdLogger.getInstance().getLogger().info("Get on loginServlet");
-		getServletContext().getRequestDispatcher("/WEB-INF/jsp/loginServlet.jsp").forward(req, resp);
+		SdLogger.getInstance().getLogger().info("Get on registerServlet");
+		getServletContext().getRequestDispatcher("/WEB-INF/jsp/registerServlet.jsp").forward(req, resp);
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -36,11 +34,15 @@ public class LoginServlet extends HttpServlet {
 			 */
 			String username = request.getParameter("username");
 			String deviceId = request.getParameter("deviceId");
+			String authToken = request.getParameter("authToken");
+			String license = request.getParameter("license");
 
 			/**
 			 * Sanity check
 			 */
 			if ((username != null) && (deviceId != null) &&
+					(license != null) &&
+					(authToken != null) &&
 					(username.length() > 0) &&
 					(true == username.contains("@")))
 			{	 
@@ -50,6 +52,7 @@ public class LoginServlet extends HttpServlet {
 				 */
 				UserMsg user = new UserMsg();
 				user.setUserName(username);
+				user.setAuthToken(authToken);
 				user.setDeviceIdentifier(deviceId);
 
 				/**
@@ -58,14 +61,12 @@ public class LoginServlet extends HttpServlet {
 				user  = DAO.getUser(user);
 
 				if (user != null)
-				{
-					request.setAttribute("user",user);
-					getServletConfig().getServletContext().
-				    	getRequestDispatcher("/WEB-INF/jsp/loginSuccessfulServlet.jsp?user=" + request.getParameter("user")).forward(request, response);
-				}
+					DAO.updateUser(user,authToken);
 				else 
-					getServletConfig().getServletContext().
-				    	getRequestDispatcher("/WEB-INF/jsp/loginServlet.jsp").forward(request, response);
+					DAO.saveUser(user);
+				
+				request.setAttribute("user",user);			
+				SdLogger.getInstance().getLogger().info("Username: "+user.getUserName());
 			}
 		} 
 		catch (Throwable theException) 	    
@@ -73,7 +74,8 @@ public class LoginServlet extends HttpServlet {
 			SdLogger.getInstance().getLogger().info(theException.getMessage()); 
 		}
 		
-	   
+	    getServletConfig().getServletContext().
+	    	getRequestDispatcher("/WEB-INF/jsp/registrationSuccessfulServlet.jsp?user=" + request.getParameter("user")).forward(request, response);
 	}
 }
 
