@@ -27,7 +27,7 @@ public class LoginServlet extends HttpServlet {
 		SdLogger.getInstance().getLogger().info("Get on loginServlet");
 		getServletContext().getRequestDispatcher("/WEB-INF/jsp/loginServlet.jsp").forward(req, resp);
 	}
-	
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try
 		{	    
@@ -61,19 +61,18 @@ public class LoginServlet extends HttpServlet {
 				{
 					request.setAttribute("user",user);
 					getServletConfig().getServletContext().
-				    	getRequestDispatcher("/WEB-INF/jsp/loginSuccessfulServlet.jsp?user=" + request.getParameter("user")).forward(request, response);
+					getRequestDispatcher("/WEB-INF/jsp/loginSuccessfulServlet.jsp?user=" + request.getParameter("user")).forward(request, response);
 				}
-				else 
-					getServletConfig().getServletContext().
-				    	getRequestDispatcher("/WEB-INF/jsp/loginServlet.jsp").forward(request, response);
 			}
+			getServletConfig().getServletContext().
+			getRequestDispatcher("/WEB-INF/jsp/loginServlet.jsp").forward(request, response);
 		} 
 		catch (Throwable theException) 	    
 		{
 			SdLogger.getInstance().getLogger().info(theException.getMessage()); 
 		}
-		
-	   
+
+
 	}
 }
 
