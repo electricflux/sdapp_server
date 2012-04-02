@@ -29,50 +29,7 @@ public class LoginServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try
-		{	    
-			/**
-			 * Get the parameters
-			 */
-			String username = request.getParameter("username");
-			String deviceId = request.getParameter("deviceId");
-
-			/**
-			 * Sanity check
-			 */
-			if ((username != null) && (deviceId != null) &&
-					(username.length() > 0) &&
-					(true == username.contains("@")))
-			{	 
-
-				/**
-				 * Create the user object
-				 */
-				UserMsg user = new UserMsg();
-				user.setUserName(username);
-				user.setDeviceIdentifier(deviceId);
-
-				/**
-				 * See if the user object exists
-				 */
-				user  = DAO.getUser(user);
-
-				if (user != null)
-				{
-					request.setAttribute("user",user);
-					getServletConfig().getServletContext().
-					getRequestDispatcher("/WEB-INF/jsp/loginSuccessfulServlet.jsp?user=" + request.getParameter("user")).forward(request, response);
-				}
-			}
-			getServletConfig().getServletContext().
-			getRequestDispatcher("/WEB-INF/jsp/loginServlet.jsp").forward(request, response);
-		} 
-		catch (Throwable theException) 	    
-		{
-			SdLogger.getInstance().getLogger().info(theException.getMessage()); 
-		}
-
-
+		doGet(request,response);
 	}
 }
 

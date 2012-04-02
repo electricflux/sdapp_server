@@ -42,7 +42,10 @@ public class RegistrationSuccessfulServlet extends HttpServlet {
 		/** If its device and registration failed, return a 403 */
 		if ((false == result) && 
 				isDevice)
+		{
 			response.setStatus(403);
+			return;
+		}
 
 		/** Create the response */
 		response.setContentType("text/html");

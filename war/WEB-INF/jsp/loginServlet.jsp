@@ -5,15 +5,11 @@
 </head>
 <body>
 	<h3>User login page</h3>
-	<form action="loginServlet" method="post">
+	<form action="loginSuccessfulServlet" method="post">
 		<table>
 			<tr>
 				<td>User Name</td>
 				<td><input type="text" name="username"></td>
-			</tr>
-			<tr>
-				<td>Device Identifier</td>
-				<td><input type="text" name="deviceId"></td>
 			</tr>
 			<tr>
 				<td><input type="submit" value="Login">&nbsp; <input
