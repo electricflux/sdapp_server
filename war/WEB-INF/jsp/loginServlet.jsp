@@ -5,7 +5,7 @@
 </head>
 <body>
 	<h3>User login page</h3>
-	<form action="loginSuccessfulServlet" method="post">
+	<form action="loginServlet" method="post">
 		<table>
 			<tr>
 				<td>User Name</td>

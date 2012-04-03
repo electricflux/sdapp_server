@@ -34,7 +34,7 @@ public class LoginSuccessfulServlet extends HttpServlet {
 		/** If login failed, return a 403 */
 		if (null == user)
 		{
-			response.setStatus(403);
+			response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 			return;
 		}
 
