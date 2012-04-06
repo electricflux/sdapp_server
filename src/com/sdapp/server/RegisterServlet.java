@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sdapp.domain.LicensePlateMsg;
 import com.sdapp.domain.UserMsg;
 import com.sdapp.logger.SdLogger;
 import com.sdapp.persistencemanager.DAO;
@@ -26,10 +27,10 @@ public class RegisterServlet extends HttpServlet {
 		SdLogger.getInstance().getLogger().info("Get on registerServlet");
 		getServletContext().getRequestDispatcher("/WEB-INF/jsp/registerServlet.jsp").forward(req, resp);
 	}
-	
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
-		SdLogger.getInstance().getLogger().info("Get on RegistrationSuccessfulServlet");
+		SdLogger.getInstance().getLogger().info("Post on RegisterServlet");
 
 		/**
 		 * Get the parameters
@@ -40,11 +41,15 @@ public class RegisterServlet extends HttpServlet {
 		String license = request.getParameter("license");
 		String isDeviceString = request.getParameter("isDevice");
 		boolean isDevice = false;
-		
+
 		if (isDeviceString != null && isDeviceString.length() > 0)
 			isDevice = Boolean.parseBoolean(isDeviceString);
 
-		boolean result = verifyAndSaveUser(username, deviceId, authToken, license);
+		/** Clean up white-space from license plate string */
+		license= license.replaceAll("\\s+", "");
+		license = license.toLowerCase();
+
+		boolean result = registerUser(username, deviceId, authToken, license);
 
 		/** If its device and registration failed, return a 403 */
 		if ((false == result) && 
@@ -74,7 +79,7 @@ public class RegisterServlet extends HttpServlet {
 		out.println("</TABLE>\n</BODY></HTML>");
 	}
 
-	private boolean verifyAndSaveUser(String username, String deviceId, String authToken, String license)
+	private boolean registerUser(String username, String deviceId, String authToken, String license)
 	{
 		/**
 		 * Sanity check
@@ -87,6 +92,13 @@ public class RegisterServlet extends HttpServlet {
 		{	 
 
 			/**
+			 * See if the user object already exists
+			 */
+			UserMsg retrievedUser  = DAO.getUser(username,false);
+			if (retrievedUser != null)
+				return false;
+
+			/**
 			 * Create the user object
 			 */
 			UserMsg user = new UserMsg();
@@ -94,14 +106,20 @@ public class RegisterServlet extends HttpServlet {
 			user.setAuthToken(authToken);
 			user.setDeviceIdentifier(deviceId);
 
-			/**
-			 * See if the user object exists
-			 */
-			UserMsg retrievedUser  = DAO.getUser(user);
-			if (retrievedUser != null)
-				DAO.updateUser(retrievedUser,authToken);
-			else 
-				DAO.saveUser(user);
+
+			String licenses[] = license.split(LicensePlateMsg.getSEPARATOR());
+			for (String lic : licenses)
+			{
+				if (lic.length() > 0)
+				{
+					LicensePlateMsg msg = new LicensePlateMsg();
+					msg.setLicensePlateNumber(lic);
+					user.getLicensePlateList().add(msg);
+				}
+			}
+
+			/** Save user */
+			DAO.saveUser(user);
 
 			SdLogger.getInstance().getLogger().info("Username: "+user.getUserName());
 			return true;

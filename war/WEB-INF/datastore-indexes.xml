@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<datastore-indexes autoGenerate="true" >
+
+    <datastore-index
+        ancestor="true"
+        kind="LicensePlateMsg"
+        source="manual" >
+
+        <property
+            name="licensePlateList_INTEGER_IDX"
+            direction="asc" />
+    </datastore-index>
+
+</datastore-indexes>

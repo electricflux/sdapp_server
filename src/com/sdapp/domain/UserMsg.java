@@ -3,6 +3,7 @@ package com.sdapp.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.jdo.annotations.Element;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
@@ -17,14 +18,6 @@ public class UserMsg {
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
     private Key key;
 	
-	public Key getKey() {
-		return key;
-	}
-
-	public void setKey(Key key) {
-		this.key = key;
-	}
-
 	@Persistent
 	private String userName;
 	
@@ -34,17 +27,32 @@ public class UserMsg {
 	@Persistent
 	private String authToken;
 	
-	@Persistent
-	private List<String> licensePlates;
+	@Persistent(mappedBy = "user", defaultFetchGroup = "true")
+    @Element(dependent = "true")
+	private List<LicensePlateMsg> licensePlateList;
 	
-	public List<String> getLicensePlates() {
-		return licensePlates;
+	/** Constructor */
+	public UserMsg()
+	{
+		licensePlateList = new ArrayList<LicensePlateMsg>();
+	}
+	
+	public List<LicensePlateMsg> getLicensePlateList() {
+		return licensePlateList;
 	}
 
-	public void setLicensePlates(List<String> licensePlates) {
-		this.licensePlates = licensePlates;
+	public void setLicensePlateList(List<LicensePlateMsg> licensePlateList) {
+		this.licensePlateList = licensePlateList;
 	}
 
+	public Key getKey() {
+		return key;
+	}
+
+	public void setKey(Key key) {
+		this.key = key;
+	}
+	
 	public String getAuthToken() {
 		return authToken;
 	}
@@ -52,9 +60,6 @@ public class UserMsg {
 	public void setAuthToken(String authToken) {
 		this.authToken = authToken;
 	}
-
-	@Persistent
-	private ArrayList<String> licencePlateList;
 
 	public String getUserName() {
 		return userName;
@@ -70,18 +75,5 @@ public class UserMsg {
 
 	public void setDeviceIdentifier(String deviceIdentifier) {
 		this.deviceIdentifier = deviceIdentifier;
-	}
-
-	public ArrayList<String> getLicencePlateList() {
-		return licencePlateList;
-	}
-
-	public void setLicencePlateList(ArrayList<String> licencePlateList) {
-		this.licencePlateList = licencePlateList;
-	}
-	
-	public UserMsg()
-	{
-		this.licencePlateList = new ArrayList<String>();
 	}
 }

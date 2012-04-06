@@ -20,37 +20,19 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>loginServlet</servlet-name>
 		<servlet-class>com.sdapp.server.LoginServlet</servlet-class>
 	</servlet>
-<!-- Login Successsful servlet -->
-	<servlet>
-		<servlet-name>loginSuccessfulServlet</servlet-name>
-		<servlet-class>com.sdapp.server.LoginSuccessfulServlet</servlet-class>
-	</servlet>
 <!-- Registration servlet -->
 	<servlet>
 		<servlet-name>registerServlet</servlet-name>
 		<servlet-class>com.sdapp.server.RegisterServlet</servlet-class>
 	</servlet>
-<!-- Registration Successsful servlet -->
-	<servlet>
-		<servlet-name>registrationSuccessfulServlet</servlet-name>
-		<servlet-class>com.sdapp.server.RegistrationSuccessfulServlet</servlet-class>
-	</servlet>
-	
-	<servlet-mapping>
+
+		<servlet-mapping>
 		<servlet-name>loginServlet</servlet-name>
 		<url-pattern>/loginServlet</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>loginSuccessfulServlet</servlet-name>
-		<url-pattern>/loginSuccessfulServlet</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
 		<servlet-name>registerServlet</servlet-name>
 		<url-pattern>/registerServlet</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>registrationSuccessfulServlet</servlet-name>
-		<url-pattern>/registrationSuccessfulServlet</url-pattern>
 	</servlet-mapping>
 	
 <!-- Server entry page -->
