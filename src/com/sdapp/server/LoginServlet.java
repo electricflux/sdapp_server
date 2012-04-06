@@ -76,9 +76,7 @@ public class LoginServlet extends HttpServlet {
 				out.println(ServletUtilities.headWithTitle(title) +
 						"<BODY BGCOLOR=\"#FDF5E6\">\n" +
 						"<H1 ALIGN=CENTER>" + title + "</H1>\n" +
-						"<TABLE BORDER=1 ALIGN=CENTER>\n" +
-						"<TR BGCOLOR=\"#FFAD00\">\n" +
-						"<TH>Parameter Name<TH>Parameter Value(s)");
+						"<TABLE BORDER=1 ALIGN=CENTER>\n");
 				/** End table */
 				out.println("</TABLE>\n</BODY></HTML>");
 			}

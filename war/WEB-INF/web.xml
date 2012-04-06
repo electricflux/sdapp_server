@@ -25,14 +25,22 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>registerServlet</servlet-name>
 		<servlet-class>com.sdapp.server.RegisterServlet</servlet-class>
 	</servlet>
-
-		<servlet-mapping>
+<!-- Submit payment servlet -->
+	<servlet>
+		<servlet-name>submitPaymentServlet</servlet-name>
+		<servlet-class>com.sdapp.server.SubmitPaymentServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
 		<servlet-name>loginServlet</servlet-name>
 		<url-pattern>/loginServlet</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>registerServlet</servlet-name>
 		<url-pattern>/registerServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>submitPaymentServlet</servlet-name>
+		<url-pattern>/submitPaymentServlet</url-pattern>
 	</servlet-mapping>
 	
 <!-- Server entry page -->

@@ -15,7 +15,7 @@ public class PaymentMsg {
     private Key key;
 	
     @Persistent
-    private Key user;
+    private String licensePlateString;
     
     @Persistent
     private long startTimestamp;
@@ -29,7 +29,52 @@ public class PaymentMsg {
     
     @Persistent
     private float amountPaid;
-    
-    @Persistent
-    private String licensePlate;
+
+	public Key getKey() {
+		return key;
+	}
+
+	public void setKey(Key key) {
+		this.key = key;
+	}
+
+	public String getLicensePlateString() {
+		return licensePlateString;
+	}
+
+	public void setLicensePlateString(String licensePlateString) {
+		this.licensePlateString = licensePlateString;
+	}
+
+	public long getStartTimestamp() {
+		return startTimestamp;
+	}
+
+	public void setStartTimestamp(long startTimestamp) {
+		this.startTimestamp = startTimestamp;
+	}
+
+	public long getEndTimeStamp() {
+		return endTimeStamp;
+	}
+
+	public void setEndTimeStamp(long endTimeStamp) {
+		this.endTimeStamp = endTimeStamp;
+	}
+
+	public long getParkingSpotId() {
+		return parkingSpotId;
+	}
+
+	public void setParkingSpotId(long parkingSpotId) {
+		this.parkingSpotId = parkingSpotId;
+	}
+
+	public float getAmountPaid() {
+		return amountPaid;
+	}
+
+	public void setAmountPaid(float amountPaid) {
+		this.amountPaid = amountPaid;
+	}
 }

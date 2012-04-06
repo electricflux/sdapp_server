@@ -7,6 +7,7 @@ import javax.jdo.Query;
 
 import com.google.appengine.api.datastore.Key;
 import com.sdapp.domain.LicensePlateMsg;
+import com.sdapp.domain.PaymentMsg;
 import com.sdapp.domain.UserMsg;
 import com.sdapp.logger.SdLogger;
 
@@ -132,6 +133,26 @@ public class DAO {
 		finally {
 			pm.close();
 		}
+	}
+
+	/**
+	 * 
+	 * @param msg
+	 */
+	public static boolean savePaymentMsg(PaymentMsg msg) {
+		PersistenceManager pm = 
+				ServerPersistenceManagerFactory.getInstance().getPersistenceManager();
+		boolean result  = false;
+		try {
+			pm.makePersistent(msg);
+			result = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			pm.close();
+		}
+		return result;
 	}
 
 	public static LicensePlateMsg getLicensePlateMsg(
