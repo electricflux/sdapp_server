@@ -32,17 +32,7 @@ public class DAO {
 			List<UserMsg> results = (List<UserMsg>) query.execute(username);
 			SdLogger.getInstance().getLogger().info("Result set from getUser query: "+results.size());
 			if (results.size() == 1)
-			{
 				verifiedUser = results.get(0);
-				/** Touch all license plate objects */
-				if (loadLicensePlateMessageList)
-				{
-					for (LicensePlateMsg msg : verifiedUser.getLicensePlateList())
-					{
-						msg.getKey();
-					}
-				}
-			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			SdLogger.getInstance().getLogger().info(e.getMessage());
@@ -122,64 +112,74 @@ public class DAO {
 	 * 
 	 * @param msg
 	 */
-	public static void saveLicensePlateMsg(LicensePlateMsg msg) {
+	public static void updateLicensePlateMsg(LicensePlateMsg msg) {
 		PersistenceManager pm = 
 				ServerPersistenceManagerFactory.getInstance().getPersistenceManager();
+		String licensePlateNumber = msg.getLicensePlateNumber();
+		List<PaymentMsg> paymentList = msg.getPaymentList();
+
 		try {
+			pm.currentTransaction().begin();
+			// We don't have a reference to the selected database object.
+			// So we have to look it up first,
+			msg = pm.getObjectById(LicensePlateMsg.class, msg.getKey());
+			msg.setLicensePlateNumber(licensePlateNumber);
+			msg.setPaymentList(paymentList);
 			pm.makePersistent(msg);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		finally {
-			pm.close();
-		}
-	}
-
-	/**
-	 * 
-	 * @param msg
-	 */
-	public static boolean savePaymentMsg(PaymentMsg msg) {
-		PersistenceManager pm = 
-				ServerPersistenceManagerFactory.getInstance().getPersistenceManager();
-		boolean result  = false;
-		try {
-			pm.makePersistent(msg);
-			result = true;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		finally {
-			pm.close();
-		}
-		return result;
-	}
-
-	public static LicensePlateMsg getLicensePlateMsg(
-			String licensePlateNumber, boolean loadUserMsg)
-	{
-		PersistenceManager pm = 
-				ServerPersistenceManagerFactory.getInstance().getPersistenceManager();
-		/** Create the query */
-		Query query = pm.newQuery(LicensePlateMsg.class);
-		query.setFilter("licensePlateNumber == licensePlateNumberParam");
-		query.declareParameters("String licensePlateNumberParam");
-
-		LicensePlateMsg licensePlateMsg = null;
-		try {
-			List<LicensePlateMsg> results = (List<LicensePlateMsg>) query.execute(licensePlateNumber);
-			SdLogger.getInstance().getLogger().info("Result set from getLicensePlateMsg query: "+results.size());
-			if (results.size() == 1)
-			{
-				licensePlateMsg = results.get(0);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			SdLogger.getInstance().getLogger().info(e.getMessage());
+			pm.currentTransaction().commit();
+		} catch (Exception ex) {
+			pm.currentTransaction().rollback();
+			SdLogger.getInstance().getLogger().info(ex.getMessage());
 		} finally {
-			query.closeAll();
 			pm.close();
 		}
-		return licensePlateMsg;
+}
+
+/**
+ * 
+ * @param msg
+ */
+public static boolean savePaymentMsg(PaymentMsg msg) {
+	PersistenceManager pm = 
+			ServerPersistenceManagerFactory.getInstance().getPersistenceManager();
+	boolean result  = false;
+	try {
+		pm.makePersistent(msg);
+		result = true;
+	} catch (Exception e) {
+		e.printStackTrace();
 	}
+	finally {
+		pm.close();
+	}
+	return result;
+}
+
+public static LicensePlateMsg getLicensePlateMsg(
+		String licensePlateNumber, boolean loadUserMsg)
+{
+	PersistenceManager pm = 
+			ServerPersistenceManagerFactory.getInstance().getPersistenceManager();
+	/** Create the query */
+	Query query = pm.newQuery(LicensePlateMsg.class);
+	query.setFilter("licensePlateNumber == licensePlateNumberParam");
+	query.declareParameters("String licensePlateNumberParam");
+
+	LicensePlateMsg licensePlateMsg = null;
+	try {
+		List<LicensePlateMsg> results = (List<LicensePlateMsg>) query.execute(licensePlateNumber);
+		SdLogger.getInstance().getLogger().info("Result set from getLicensePlateMsg query: "+results.size());
+		if (results.size() == 1)
+		{
+			licensePlateMsg = results.get(0);
+		}
+	} catch (Exception e) {
+		e.printStackTrace();
+		SdLogger.getInstance().getLogger().info(e.getMessage());
+	} finally {
+		query.closeAll();
+		pm.close();
+	}
+	return licensePlateMsg;
+}
 }

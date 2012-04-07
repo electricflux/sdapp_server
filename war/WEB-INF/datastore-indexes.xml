@@ -11,4 +11,14 @@
             direction="asc" />
     </datastore-index>
 
+    <datastore-index
+        ancestor="true"
+        kind="PaymentMsg"
+        source="manual" >
+
+        <property
+            name="paymentList_INTEGER_IDX"
+            direction="asc" />
+    </datastore-index>
+
 </datastore-indexes>

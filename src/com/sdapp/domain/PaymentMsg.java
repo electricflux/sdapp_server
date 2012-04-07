@@ -15,7 +15,7 @@ public class PaymentMsg {
     private Key key;
 	
     @Persistent
-    private String licensePlateString;
+    private LicensePlateMsg licensePlateMsg;
     
     @Persistent
     private long startTimestamp;
@@ -37,13 +37,13 @@ public class PaymentMsg {
 	public void setKey(Key key) {
 		this.key = key;
 	}
-
-	public String getLicensePlateString() {
-		return licensePlateString;
+	
+	public LicensePlateMsg getLicensePlateMsg() {
+		return licensePlateMsg;
 	}
 
-	public void setLicensePlateString(String licensePlateString) {
-		this.licensePlateString = licensePlateString;
+	public void setLicensePlateMsg(LicensePlateMsg licensePlateMsg) {
+		this.licensePlateMsg = licensePlateMsg;
 	}
 
 	public long getStartTimestamp() {

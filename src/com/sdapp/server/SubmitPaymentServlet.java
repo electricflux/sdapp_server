@@ -80,28 +80,17 @@ public class SubmitPaymentServlet extends HttpServlet {
 		}
 
 		/**
-		 * Populate the payment message
+		 * Populate the payment message, add it to license plate payment list
+		 * and persist
 		 */
 		PaymentMsg payment  = new PaymentMsg();
 		payment.setParkingSpotId(parkingSpotId);
 		payment.setAmountPaid(amountPaid);
 		payment.setStartTimestamp(startTimestamp);
 		payment.setEndTimeStamp(endTimestamp);
-		payment.setLicensePlateString(
-				licensePlateMsg.getLicensePlateNumber());
-		boolean result = DAO.savePaymentMsg(payment);
-
-		/** 
-		 * If its device and persistence of the payment failed, 
-		 * return a 402 
-		 */
-		if ((false == result) && 
-				isDevice)
-		{
-			handleError(response,isDevice);
-			return;
-		}
-
+		licensePlateMsg.getPaymentList().add(payment);
+		DAO.updateLicensePlateMsg(licensePlateMsg);
+		
 		/** Create the response */
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
@@ -122,7 +111,7 @@ public class SubmitPaymentServlet extends HttpServlet {
 		Utils.printParamRow(out,"amountPaid", 
 				""+payment.getAmountPaid());
 		Utils.printParamRow(out,"license", 
-				""+payment.getLicensePlateString());
+				""+licensePlateMsg.getLicensePlateNumber());
 		/** End table */
 		out.println("</TABLE>\n</BODY></HTML>");
 	}

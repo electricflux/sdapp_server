@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.sdapp.domain.LicensePlateMsg;
+import com.sdapp.domain.PaymentMsg;
 import com.sdapp.domain.UserMsg;
 import com.sdapp.logger.SdLogger;
 import com.sdapp.persistencemanager.DAO;
@@ -98,14 +99,42 @@ public class LoginServlet extends HttpServlet {
 			printParamRow(out,"username", user.getUserName());
 			printParamRow(out,"deviceId", user.getDeviceIdentifier());
 			printParamRow(out,"authToken", user.getAuthToken());
-			int iter = 1;
+			/** License payment tables */
 			for (LicensePlateMsg msg : user.getLicensePlateList())
 			{
-				printParamRow(out,"License"+iter+" : ",msg.getLicensePlateNumber());
-				iter++;
+				printParamRow(out,"licensePlate", msg.getLicensePlateNumber());
 			}
 			/** End table */
-			out.println("</TABLE>\n</BODY></HTML>");
+			out.println("</TABLE>");
+
+			/** License payment tables */
+			for (LicensePlateMsg msg : user.getLicensePlateList())
+			{
+				printLicensePlateInfo(out, msg);
+			}
+
+			/** End HTML page */
+			out.println("\n</BODY></HTML>");
+
+		}
+	}
+
+	private void printLicensePlateInfo(
+			PrintWriter out, LicensePlateMsg msg) {
+
+		for (PaymentMsg payment: msg.getPaymentList())
+		{
+			/** Print parameters as rows */
+			out.println("<H1 ALIGN=CENTER>" + msg.getLicensePlateNumber() + "</H1>\n" +
+					"<TABLE BORDER=1 ALIGN=CENTER>\n" +
+					"<TR BGCOLOR=\"#FFAD00\">\n" +
+					"<TH>Parameter Name<TH>Parameter Value(s)");
+			/** Print parameters as rows */
+			printParamRow(out,"amountPaid", ""+payment.getAmountPaid());
+			printParamRow(out,"startTimestamp", ""+payment.getStartTimestamp());
+			printParamRow(out,"endTimeStamp", ""+payment.getEndTimeStamp());
+			/** End table */
+			out.println("</TABLE>");
 		}
 	}
 

@@ -17,7 +17,7 @@ public class ServletUtilities {
            "<HTML>\n" +
            "<HEAD><TITLE>" + title + "</TITLE></HEAD>\n");
   }
-
+  
   /** Read a parameter with the specified name, convert it to an int,
       and return it. Return the designated default value if the parameter
       doesn't exist or if it is an illegal integer format.
