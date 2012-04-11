@@ -30,6 +30,13 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>submitPaymentServlet</servlet-name>
 		<servlet-class>com.sdapp.server.SubmitPaymentServlet</servlet-class>
 	</servlet>
+<!-- Get apk servlet -->
+	<servlet>
+		<servlet-name>getApkServlet</servlet-name>
+		<servlet-class>com.sdapp.server.GetApkServlet</servlet-class>
+	</servlet>
+	
+<!-- Servlet mappings -->
 	<servlet-mapping>
 		<servlet-name>loginServlet</servlet-name>
 		<url-pattern>/loginServlet</url-pattern>
@@ -41,6 +48,10 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	<servlet-mapping>
 		<servlet-name>submitPaymentServlet</servlet-name>
 		<url-pattern>/submitPaymentServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>getApkServlet</servlet-name>
+		<url-pattern>/getApkServlet</url-pattern>
 	</servlet-mapping>
 	
 <!-- Server entry page -->
