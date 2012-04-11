@@ -1,7 +1,6 @@
 package com.sdapp.domain;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.jdo.annotations.Element;
 import javax.jdo.annotations.IdGeneratorStrategy;
@@ -29,7 +28,7 @@ public class UserMsg {
 	
 	@Persistent(mappedBy = "user", defaultFetchGroup = "true")
     @Element(dependent = "true")
-	private List<LicensePlateMsg> licensePlateList;
+	private ArrayList<LicensePlateMsg> licensePlateList;
 	
 	/** Constructor */
 	public UserMsg()
@@ -37,11 +36,11 @@ public class UserMsg {
 		licensePlateList = new ArrayList<LicensePlateMsg>();
 	}
 	
-	public List<LicensePlateMsg> getLicensePlateList() {
+	public ArrayList<LicensePlateMsg> getLicensePlateList() {
 		return licensePlateList;
 	}
 
-	public void setLicensePlateList(List<LicensePlateMsg> licensePlateList) {
+	public void setLicensePlateList(ArrayList<LicensePlateMsg> licensePlateList) {
 		this.licensePlateList = licensePlateList;
 	}
 

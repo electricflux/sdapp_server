@@ -5,6 +5,7 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.appengine.api.datastore.Key;
 
 @PersistenceCapable
@@ -14,6 +15,7 @@ public class PaymentMsg {
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
     private Key key;
 	
+	@JsonIgnore
     @Persistent
     private LicensePlateMsg licensePlateMsg;
     

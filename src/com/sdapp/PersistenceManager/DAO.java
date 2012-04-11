@@ -1,5 +1,6 @@
 package com.sdapp.persistencemanager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
@@ -116,7 +117,7 @@ public class DAO {
 		PersistenceManager pm = 
 				ServerPersistenceManagerFactory.getInstance().getPersistenceManager();
 		String licensePlateNumber = msg.getLicensePlateNumber();
-		List<PaymentMsg> paymentList = msg.getPaymentList();
+		ArrayList<PaymentMsg> paymentList = msg.getPaymentList();
 
 		try {
 			pm.currentTransaction().begin();

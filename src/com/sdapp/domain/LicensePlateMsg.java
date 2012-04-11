@@ -1,7 +1,6 @@
 package com.sdapp.domain;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.jdo.annotations.Element;
 import javax.jdo.annotations.IdGeneratorStrategy;
@@ -9,6 +8,7 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.appengine.api.datastore.Key;
 
 @PersistenceCapable
@@ -20,12 +20,13 @@ public class LicensePlateMsg {
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
     private Key key;
 	
+	@JsonIgnore
 	@Persistent 
 	private UserMsg user;
 	
 	@Persistent(mappedBy = "licensePlateMsg", defaultFetchGroup = "true")
     @Element(dependent = "true")
-	private List<PaymentMsg> paymentList;
+	private ArrayList<PaymentMsg> paymentList;
 	
 	@Persistent
 	private String licensePlateNumber;
@@ -43,11 +44,11 @@ public class LicensePlateMsg {
 		this.user = user;
 	}
 
-	public List<PaymentMsg> getPaymentList() {
+	public ArrayList<PaymentMsg> getPaymentList() {
 		return paymentList;
 	}
 
-	public void setPaymentList(List<PaymentMsg> paymentList) {
+	public void setPaymentList(ArrayList<PaymentMsg> paymentList) {
 		this.paymentList = paymentList;
 	}
 
